@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-@wzt-l*qk#-=2)5mme=p-a*p8$u4dnmss=-&_#h)&y3xv6$5)o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'geolocation.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,9 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -116,6 +117,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = str(BASE_DIR/'staticfiles')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = str(BASE_DIR/'media')
+
+YELP_API_KEY = '1cgiR6za2ruxchKY2hTbPY4B7l_gocQCtX1-38_JDTOc-eZt8tXtWVC5yUt0mLUh87_3e_95Y-yaTB0s3bKBbsI2a_OxRUEbE2PlVGk0ytGuvjElZvL3aovyT5gKY3Yx'
+
+GEOIP_PATH = str(BASE_DIR/'geoip')
+
+LOGOUT_REDIRECT_URL = 'index'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
