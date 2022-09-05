@@ -7,16 +7,16 @@
     var lat = {{ items.businesses.0.coordinates.latitude | safe }};
     var lon = {{ items.businesses.0.coordinates.longitude | safe }};
 
-    var map = L.map('mapDiv').setView([lat, lon, 13]);
+    var map = L.map('mapDiv').setView([lat, lon], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href='https://www.openstreetmap.org/OpenStreetMaps</a> contributors',
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMaps</a> contributors',
         maxZoom: 18,
     }).addTo(map);
 
     {% for bus in items.businesses %}
         var marker = L.marker([{{ bus.coordinates.latitude | safe}}, {{ bus.coordinates.longitude | safe}}]).addTo(map);
 
-        marker.bindPopup("<b>{{ bus.name }}</b><br/>{{ bus.location.display_address.0 }} {{ bus.location.display_address.1}}<br/>{{ city }}").openPopup;
+        marker.bindPopup("<b>{{ bus.name }}</b><br/>{{ bus.location.display_address.0 }} {{ bus.location.display_address.1}}<br/>{{ city }}").openPopup();
     {% endfor %}
 </script>

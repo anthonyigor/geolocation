@@ -25,14 +25,14 @@
         {% elif busca and items.businesses|length < 1 %}
             <h1>Nothing found for the searched keyword</h1>
         {% elif city and items %}
-            <h1>Establishments results for {{ keyword }}</h1>
+            <h1>Results for {{ keyword }} in {{ city }}</h1>
             {% for bus in items.businesses %}
                 <span class="text-info">{{ bus.name }}, {{ city }}</span><br/>
             {% endfor %}
         {% endif %}
     </div>
-    {% if city and items %}
+    {% if city and items|length > 1 %}
         {% include 'maps.html' %}
     {% endif %}
 
-{% endblock content %}
+{% endblock %}

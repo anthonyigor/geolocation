@@ -8,12 +8,14 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         items = []
         city = None
+        country = None
 
         # loop até encontrar a cidade referente ao IP do usuário
         while not city:
             ret = get_client_data()
             if ret:
                 city = ret['city']
+                country = ret['country_name']
 
         # recebe a palavra-chave da busca informada, e a localização (caso o usuário queira informar outra)
         query = request.GET.get('key', None)
@@ -34,6 +36,8 @@ class IndexView(View):
             context = {
                 'items': items,
                 'city': location,
+                'country': country,
+                'keyword': query,
                 'busca': True
             }
         return render(request, 'index.html', context)
