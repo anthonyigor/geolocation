@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6">
+        <form autocomplete="off" action="{% url 'index' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <h1><a href="{% url 'index' %}">Smart Search Machine</a></h1>
+                <h4>[{{ city }}{% if country %} - {{ country }} {% endif %}]</h4>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="key" placeholder="Enter a keyword to search" required/>
+                <small id="keyHelp" class="form-text text-muted">Example: Asian Food, Brazilian Food, Pizza</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="loc" placeholder="Enter a city to search"/>
+                <small id="keyLoc" class="form-text text-muted">Example: Liverpool, Vancouver, Albuquerque</small>
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        {% if 'error' in items %}
+            <h1>No establishment found in {{ city }}</h1>
+        {% elif busca and items.businesses|length < 1 %}
+            <h1>Nothing found for the searched keyword</h1>
+        {% elif city and items %}
+            <h1>Establishments results for {{ keyword }}</h1>
+            {% for bus in items.businesses %}
+                <span class="text-info">{{ bus.name }}, {{ city }}</span><br/>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% if city and items %}
+        {% include 'maps.html' %}
+    {% endif %}
+
+{% endblock content %}

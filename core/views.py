@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from utils import yelp_search, get_client_data
+from .utils import yelp_search, get_client_data
 
 
 class IndexView(View):
@@ -12,7 +12,8 @@ class IndexView(View):
         # loop até encontrar a cidade referente ao IP do usuário
         while not city:
             ret = get_client_data()
-            city = ret['city']
+            if ret:
+                city = ret['city']
 
         # recebe a palavra-chave da busca informada, e a localização (caso o usuário queira informar outra)
         query = request.GET.get('key', None)
